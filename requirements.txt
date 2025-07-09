@@ -1,4 +1,4 @@
 Flask==3.0.3
-chatterbot==1.2.7
+chatterbot>=1.2.3
 SQLAlchemy==2.0.41
 gunicorn==22.0.0
