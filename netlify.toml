@@ -1,6 +1,3 @@
 [build]
   command = "pip install -r requirements.txt && python3 train.py"
   publish = "templates"
-
-[[plugins]]
-  package = "netlify-plugin-python"
