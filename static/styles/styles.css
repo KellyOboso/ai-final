@@ -1,0 +1,826 @@
+:root {
+    --navbar-height: 70px;
+    --content-wrapper-padding: 0px; /* Changed to 0px to remove space around container */
+    --dark-blue-primary: #0F1A2A; /* Even deeper, rich dark blue for main background */
+    --dark-blue-secondary: #1A2B3C; /* Slightly lighter dark blue for secondary elements/panels */
+    --blue-accent: #4A90E2; /* A vibrant, modern blue for accents and primary actions */
+    --blue-light: #87CEFA; /* A lighter, softer blue for highlights and subtle glows */
+    --text-color-light: #E0E6EB; /* Off-white/light gray-blue for general text on dark backgrounds */
+    --text-color-dark: #A3B1BF; /* Darker gray-blue for secondary text or subtle details */
+    --border-color-glass: rgba(255, 255, 255, 0.15); /* Subtle white for glass borders, slightly more visible */
+    --shadow-color-dark: rgba(0, 0, 0, 0.8); /* Even deeper shadow for more pronounced depth */
+    --transition-speed: 0.4s; /* Slightly slower transition speed for smoother effects */
+}
+
+html, body {
+    height: 100%; /* Ensure html and body take full viewport height */
+    width: 100%; /* Ensure html and body take full viewport width */
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif; /* Using Inter for a modern feel */
+    color: var(--text-color-light);
+    overflow: hidden; /* Prevent all scrolling on the body, let inner elements scroll */
+    scroll-behavior: smooth;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    background-image: none; /* Ensure no background image */
+    background-color: var(--dark-blue-primary); /* Solid deep dark blue background */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    /* If you want a general background blur, apply it here or to a wrapper div */
+    /* backdrop-filter: blur(5px); */ /* Example: apply a subtle blur to the entire background */
+    /* -webkit-backdrop-filter: blur(5px); */
+}
+
+#loader-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(var(--dark-blue-primary), 0.98); /* Even more opaque loader background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity var(--transition-speed) ease-out, visibility var(--transition-speed) ease-out;
+}
+
+#loader {
+    font-size: 5em; /* Larger loader text */
+    font-weight: bold;
+    color: var(--blue-accent); /* Accent color for loader */
+    text-shadow: 3px 3px 8px var(--shadow-color-dark); /* More pronounced shadow */
+    animation: pulse 2s infinite alternate ease-in-out; /* Smoother, longer pulse animation */
+}
+
+@keyframes pulse {
+    from { transform: scale(0.9); opacity: 0.6; }
+    to { transform: scale(1.1); opacity: 1; }
+}
+
+.navbar {
+    background-color: rgba(var(--dark-blue-secondary), 0.98); /* Even more opaque navbar */
+    color: white;
+    padding: 18px 30px; /* Increased padding */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 6px 20px var(--shadow-color-dark); /* More defined shadow */
+    width: 100%;
+    box-sizing: border-box;
+    backdrop-filter: blur(12px); /* Increased blur for navbar */
+    -webkit-backdrop-filter: blur(12px);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    height: var(--navbar-height);
+    border-bottom-left-radius: 12px; /* More rounded bottom corners */
+    border-bottom-right-radius: 12px;
+    border-bottom: 1px solid var(--border-color-glass); /* Subtle border */
+}
+
+.navbar-brand .logo {
+    color: var(--blue-light);
+    text-decoration: none;
+    font-size: 1.8em; /* Larger logo */
+    font-weight: bold;
+    transition: color var(--transition-speed) ease, text-shadow var(--transition-speed) ease;
+}
+
+.navbar-brand .logo:hover {
+    color: white;
+    text-shadow: 0 0 10px rgba(255,255,255,0.6); /* More pronounced glow on hover */
+}
+
+.navbar-nav {
+    display: block;
+}
+
+.navbar-nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 35px; /* Increased gap between nav items */
+}
+
+.navbar-nav li a {
+    color: var(--text-color-light);
+    text-decoration: none;
+    font-size: 1.1em; /* Slightly larger nav links */
+    padding: 12px 18px; /* Increased padding */
+    border-radius: 10px; /* More rounded corners */
+    transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease, transform 0.3s ease;
+}
+
+.navbar-nav li a:hover {
+    background-color: rgba(var(--blue-accent), 0.35); /* More transparent blue on hover */
+    color: white;
+    transform: translateY(-3px); /* More pronounced lift effect */
+}
+
+.navbar-buttons {
+    display: flex;
+    align-items: center;
+    gap: 25px; /* Increased gap */
+}
+
+.hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 35px; /* Larger hamburger */
+    height: 30px; /* Larger hamburger */
+    cursor: pointer;
+    z-index: 1100;
+}
+
+.hamburger .bar {
+    width: 100%;
+    height: 4px; /* Thicker bars */
+    background-color: white;
+    border-radius: 5px;
+    transition: all var(--transition-speed) ease-in-out;
+}
+
+.hamburger.active .bar:nth-child(1) {
+    transform: translateY(13px) rotate(45deg);
+}
+.hamburger.active .bar:nth-child(2) {
+    opacity: 0;
+}
+.hamburger.active .bar:nth-child(3) {
+    transform: translateY(-13px) rotate(-45deg);
+}
+
+#tips-toggle-btn {
+    background-color: var(--blue-accent);
+    color: white;
+    border: none;
+    padding: 12px 22px; /* Increased padding */
+    border-radius: 10px; /* More rounded corners */
+    cursor: pointer;
+    font-size: 1em; /* Standard font size */
+    font-weight: bold;
+    transition: background-color var(--transition-speed) ease, transform 0.3s ease, box-shadow var(--transition-speed) ease;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4); /* More prominent shadow */
+}
+
+#tips-toggle-btn:hover {
+    background-color: color-mix(in srgb, var(--blue-accent) 80%, black); /* Darker blue on hover */
+    transform: translateY(-3px); /* More pronounced lift */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5); /* Stronger shadow on hover */
+}
+
+.content-wrapper {
+    flex-grow: 1; /* Allows content to take all available vertical space */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 0; /* Removed padding to allow container to stretch fully */
+    box-sizing: border-box;
+    width: 100%;
+    height: calc(100vh - var(--navbar-height)); /* Take remaining height below navbar */
+}
+
+.affirmations-sidebar {
+    position: fixed;
+    top: var(--navbar-height);
+    right: 25px; /* Slightly more margin from right */
+    width: 320px; /* Wider sidebar */
+    max-width: 90%;
+    background-color: rgba(var(--dark-blue-secondary), 0.99); /* Almost fully opaque for sidebar content */
+    border-radius: 18px; /* Even more rounded */
+    box-shadow: 0 12px 35px var(--shadow-color-dark); /* Deeper shadow */
+    border: 1px solid rgba(var(--blue-accent), 0.7); /* More visible border */
+    backdrop-filter: blur(25px); /* Increased blur for sidebar */
+    -webkit-backdrop-filter: blur(25px);
+    padding: 30px; /* Increased padding */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    z-index: 900;
+    flex-shrink: 0;
+
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    transition: max-height 0.6s ease-in-out, opacity 0.6s ease-in-out, visibility 0.6s ease-in-out;
+}
+
+.affirmations-sidebar.active {
+    max-height: 800px; /* Adjusted max-height */
+    opacity: 1;
+    visibility: visible;
+}
+
+.affirmations-sidebar h2 {
+    color: var(--blue-light);
+    font-size: 2em; /* Larger heading */
+    margin-bottom: 30px;
+    text-align: center;
+    border-bottom: 2px solid rgba(var(--dark-blue-secondary), 0.8); /* More defined border */
+    padding-bottom: 18px;
+}
+
+.sidebar-messages {
+    flex-grow: 1;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(var(--text-color-dark), 0.7) transparent;
+}
+
+.sidebar-messages::-webkit-scrollbar {
+    width: 12px; /* Wider scrollbar */
+}
+
+.sidebar-messages::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.sidebar-messages::-webkit-scrollbar-thumb {
+    background-color: rgba(var(--text-color-dark), 0.9);
+    border-radius: 12px;
+    border: 4px solid transparent; /* Thicker transparent border */
+    background-clip: padding-box;
+}
+
+.sidebar-messages::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(var(--text-color-dark), 1);
+}
+
+.sidebar-item {
+    background-color: rgba(var(--dark-blue-primary), 0.95); /* Even more opaque for readability */
+    padding: 20px; /* Increased padding */
+    border-radius: 15px; /* More rounded */
+    margin-bottom: 20px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3); /* More prominent shadow */
+    border: 1px solid rgba(var(--blue-accent), 0.5); /* More visible border */
+    color: var(--text-color-light);
+}
+
+.sidebar-item h3 {
+    color: var(--blue-light);
+    font-size: 1.4em; /* Slightly larger heading */
+    margin-top: 0;
+    margin-bottom: 15px;
+    border-bottom: 1px dotted rgba(var(--dark-blue-secondary), 0.6); /* More defined dotted border */
+    padding-bottom: 10px;
+}
+
+.sidebar-item p, .sidebar-item ul {
+    font-size: 1.05em; /* Slightly larger font size */
+    line-height: 1.7;
+    color: var(--text-color-light);
+    margin-bottom: 10px;
+}
+
+.sidebar-item ul {
+    list-style-type: disc;
+    margin-left: 30px;
+    padding-left: 0;
+}
+
+.sidebar-item ul li {
+    margin-bottom: 8px;
+}
+
+.sidebar-item strong {
+    color: var(--blue-accent);
+}
+
+.container {
+    background-color: rgba(var(--dark-blue-secondary), 0.35); /* More opaque container */
+    border-radius: 20px; /* Even more rounded */
+    box-shadow: 0 15px 40px var(--shadow-color-dark); /* Deeper shadow */
+    border: 1px solid var(--border-color-glass);
+    backdrop-filter: blur(15px); /* Increased blur for main container */
+    -webkit-backdrop-filter: blur(15px);
+    flex-grow: 1; /* Allow container to grow within content-wrapper */
+    width: 100%; /* Fill available width */
+    height: 100%; /* Fill available height */
+    max-height: 100%; /* Ensure it doesn't exceed 100% of parent height */
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    margin: 0; /* Remove margin as content-wrapper will center it */
+    animation: fadeIn 1.2s ease-out; /* Slower fade-in animation */
+    flex-shrink: 0;
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(40px); } /* Deeper starting point */
+    to { opacity: 1; transform: translateY(0); }
+}
+
+h1 {
+    background-color: rgba(var(--blue-accent), 0.9); /* More opaque header */
+    color: white;
+    padding: 25px 0; /* Increased padding */
+    margin: 0;
+    text-align: center;
+    font-size: 2.2em; /* Larger heading */
+    border-bottom: 2px solid rgba(var(--blue-accent), 1);
+    backdrop-filter: blur(5px); /* Increased blur */
+    -webkit-backdrop-filter: blur(5px);
+    border-top-left-radius: 20px; /* Match container border-radius */
+    border-top-right-radius: 20px;
+}
+
+.disclaimer {
+    background-color: rgba(255, 253, 231, 0.2); /* More transparent disclaimer */
+    border-left: 6px solid #FFD700; /* Thicker gold border for warning */
+    padding: 20px 30px; /* Increased padding */
+    margin: 0;
+    color: var(--text-color-light);
+    font-size: 1.05em; /* Slightly larger font size */
+    line-height: 1.7;
+    text-align: justify;
+    box-shadow: inset 0 -3px 10px rgba(0, 0, 0, 0.2); /* More prominent inner shadow */
+    backdrop-filter: blur(4px); /* Increased blur */
+    -webkit-backdrop-filter: blur(4px);
+}
+
+#chatbox {
+    flex-grow: 1;
+    padding: 30px; /* Increased padding */
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Increased gap between messages */
+    scroll-behavior: smooth;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(var(--text-color-dark), 0.7) transparent;
+    background-color: rgba(var(--dark-blue-primary), 0.2); /* More opaque for chatbox background */
+    backdrop-filter: blur(12px); /* Increased blur for chatbox content area */
+    -webkit-backdrop-filter: blur(12px);
+}
+
+#chatbox::-webkit-scrollbar {
+    width: 12px;
+}
+
+#chatbox::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+#chatbox::-webkit-scrollbar-thumb {
+    background-color: rgba(var(--text-color-dark), 0.9);
+    border-radius: 12px;
+    border: 4px solid transparent;
+    background-clip: padding-box;
+}
+
+#chatbox::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(var(--text-color-dark), 1);
+}
+
+.bottext, .usertext {
+    max-width: 70%; /* Slightly narrower messages for better visual balance */
+    padding: 16px 22px; /* Increased padding */
+    border-radius: 28px; /* More rounded */
+    line-height: 1.7;
+    word-wrap: break-word;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* More prominent shadow */
+    position: relative;
+    backdrop-filter: blur(8px); /* Increased blur for messages */
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.bottext {
+    background-color: rgba(var(--blue-accent), 0.2); /* More transparent blue for bot */
+    align-self: flex-start;
+    color: var(--text-color-light);
+    border: 1px solid rgba(var(--blue-accent), 0.4); /* More visible border for bot messages */
+}
+
+.usertext {
+    background-color: rgba(var(--dark-blue-secondary), 0.5); /* More opaque for user messages */
+    align-self: flex-end;
+    color: white;
+    border: 1px solid rgba(var(--dark-blue-secondary), 0.6); /* More visible border for user messages */
+}
+
+#userInput {
+    display: flex;
+    padding: 22px 30px; /* Increased padding */
+    background-color: rgba(var(--dark-blue-primary), 0.85); /* More opaque input area background */
+    border-top: 1px solid rgba(var(--blue-accent), 0.9);
+    align-items: center;
+    backdrop-filter: blur(5px); /* Increased blur for input area */
+    -webkit-backdrop-filter: blur(5px);
+    border-bottom-left-radius: 20px; /* Match container border-radius */
+    border-bottom-right-radius: 20px;
+}
+
+#textInput {
+    flex-grow: 1;
+    padding: 16px 22px; /* Increased padding */
+    border: 2px solid white; /* White 2px border */
+    border-radius: 30px; /* More rounded */
+    font-size: 1.1em; /* Larger font */
+    margin-right: 20px; /* Increased margin */
+    outline: none;
+    background-color: rgba(var(--dark-blue-secondary), 0.5); /* More opaque input background */
+    color: var(--text-color-light);
+    transition: border-color var(--transition-speed) ease, background-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+    backdrop-filter: blur(8px); /* Increased blur for input field */
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.5); /* More prominent inner shadow */
+}
+
+#textInput:focus {
+    border-color: var(--blue-light);
+    background-color: rgba(var(--dark-blue-secondary), 0.7); /* More opaque on focus */
+    box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.6), 0 0 0 4px rgba(var(--blue-accent), 0.5); /* More prominent glow on focus */
+}
+
+#buttonInput, #clearHistoryBtn {
+    background-color: var(--blue-accent);
+    color: white;
+    border: none;
+    padding: 16px 32px; /* Increased padding */
+    border-radius: 30px; /* More rounded */
+    cursor: pointer;
+    font-size: 1.1em; /* Larger font */
+    font-weight: bold;
+    transition: background-color var(--transition-speed) ease, transform 0.3s ease, box-shadow var(--transition-speed) ease;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4); /* More prominent shadow */
+}
+
+#buttonInput:hover, #clearHistoryBtn:hover {
+    background-color: color-mix(in srgb, var(--blue-accent) 75%, black);
+    transform: translateY(-4px); /* More pronounced lift */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5); /* Stronger shadow on hover */
+}
+
+#buttonInput:active, #clearHistoryBtn:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+#clearHistoryBtn {
+    background-color: #C02030; /* Slightly darker crimson red */
+    margin-left: 20px; /* Increased margin */
+}
+
+#clearHistoryBtn:hover {
+    background-color: color-mix(in srgb, #C02030 75%, black);
+}
+
+
+/* History Page Specific Styles */
+.history-container {
+    background-color: rgba(var(--dark-blue-secondary), 0.4); /* More opaque for history container */
+    border-radius: 20px; /* More rounded */
+    box-shadow: 0 15px 40px var(--shadow-color-dark); /* Deeper shadow */
+    padding: 40px; /* Increased padding */
+    width: 90%;
+    max-width: 1000px; /* Wider max-width */
+    margin: 40px auto; /* Increased margin */
+    box-sizing: border-box;
+    flex-shrink: 0;
+    backdrop-filter: blur(18px); /* Increased blur */
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid var(--border-color-glass);
+}
+
+.history-container h1 {
+    color: var(--blue-light); /* Lighter blue for history heading */
+    text-align: center;
+    margin-bottom: 40px; /* Increased margin */
+    font-size: 2.8em; /* Larger heading */
+    border-bottom: 3px solid rgba(var(--dark-blue-secondary), 0.7); /* More defined border */
+    padding-bottom: 20px;
+    background: none; /* Remove background from this h1 to use container's background */
+    backdrop-filter: none; /* Remove blur as container has it */
+    -webkit-backdrop-filter: none;
+    border-radius: 0; /* Remove specific border-radius */
+}
+
+.conversation-entry {
+    background-color: rgba(var(--dark-blue-primary), 0.8); /* More opaque for conversation entries */
+    border-radius: 15px; /* More rounded */
+    padding: 25px; /* Increased padding */
+    margin-bottom: 30px; /* Increased margin */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4); /* More prominent shadow */
+    border: 1px solid rgba(var(--blue-accent), 0.5); /* More visible border */
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.conversation-entry:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.5);
+}
+
+.conversation-entry h3 {
+    color: var(--blue-accent); /* Accent color for conversation ID */
+    font-size: 1.5em; /* Larger heading */
+    margin-top: 0;
+    margin-bottom: 18px;
+    border-bottom: 1px dotted rgba(var(--text-color-dark), 0.5); /* More defined dotted border */
+    padding-bottom: 12px;
+}
+
+.conversation-content {
+    background-color: rgba(var(--dark-blue-secondary), 0.6); /* More opaque for content background */
+    border: 1px solid rgba(var(--text-color-dark), 0.4); /* Subtle border */
+    border-radius: 12px; /* More rounded */
+    padding: 18px; /* Increased padding */
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-family: 'Roboto Mono', monospace; /* Monospace font for code-like content */
+    font-size: 1em; /* Standard font size */
+    color: var(--text-color-light);
+    max-height: 300px; /* Increased max-height */
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(var(--text-color-dark), 0.7) transparent;
+}
+
+.conversation-content::-webkit-scrollbar {
+    width: 10px;
+}
+
+.conversation-content::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.conversation-content::-webkit-scrollbar-thumb {
+    background-color: rgba(var(--text-color-dark), 0.9);
+    border-radius: 10px;
+}
+
+.delete-single-conversation-btn {
+    position: absolute;
+    top: 18px; /* Adjusted position */
+    right: 18px; /* Adjusted position */
+    background-color: #C02030; /* Crimson red */
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 35px; /* Larger button */
+    height: 35px; /* Larger button */
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 1;
+    padding: 0;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.4); /* More prominent shadow */
+    transition: background-color var(--transition-speed) ease, transform 0.3s ease, box-shadow var(--transition-speed) ease;
+}
+
+.delete-single-conversation-btn:hover {
+    background-color: color-mix(in srgb, #C02030 75%, black);
+    transform: scale(1.2); /* More pronounced scale */
+    box-shadow: 0 6px 15px rgba(0,0,0,0.5);
+}
+
+.no-history {
+    text-align: center;
+    color: var(--text-color-dark);
+    font-style: italic;
+    margin-top: 80px; /* Increased margin */
+    font-size: 1.3em; /* Larger font */
+}
+
+.clear-history-container {
+    text-align: center;
+    margin-top: 50px; /* Increased margin */
+}
+
+.clear-history-button {
+    background-color: #C02030; /* Crimson red */
+    color: white;
+    border: none;
+    padding: 18px 35px; /* Increased padding */
+    border-radius: 35px; /* More rounded */
+    cursor: pointer;
+    font-size: 1.2em; /* Larger font */
+    font-weight: bold;
+    transition: background-color var(--transition-speed) ease, transform 0.3s ease, box-shadow var(--transition-speed) ease;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4); /* More prominent shadow */
+}
+
+.clear-history-button:hover {
+    background-color: color-mix(in srgb, #C02030 75%, black);
+    transform: translateY(-4px); /* More pronounced lift */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5); /* Stronger shadow on hover */
+}
+
+.clear-history-button:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+
+/* Media Queries for Responsiveness */
+@media (max-width: 992px) {
+    :root {
+        --navbar-height: 60px;
+    }
+
+    .navbar {
+        padding: 10px 15px;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    .navbar-brand .logo {
+        font-size: 1.4em;
+    }
+
+    .navbar-nav {
+        max-height: 0;
+        overflow: hidden;
+        flex-direction: column;
+        width: 100%;
+        background-color: rgba(var(--dark-blue-secondary), 0.98);
+        position: absolute;
+        top: var(--navbar-height);
+        left: 0;
+        padding: 0;
+        border-radius: 0 0 10px 10px;
+        box-shadow: 0 8px 20px var(--shadow-color-dark);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        transform: translateY(-100%);
+        transition: transform 0.4s ease-in-out, max-height 0.4s ease-in-out, padding 0.4s ease-in-out;
+    }
+    .navbar-nav.active {
+        max-height: 300px;
+        padding: 15px 0;
+        transform: translateY(0);
+    }
+    .navbar-nav ul {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .navbar-nav li {
+        width: 100%;
+        text-align: center;
+    }
+    .navbar-nav li a {
+        display: block;
+        padding: 10px 20px;
+        border-radius: 0;
+        font-size: 1em;
+    }
+    .navbar-nav li a:hover {
+        background-color: rgba(var(--blue-accent), 0.35);
+    }
+
+    .hamburger {
+        display: flex;
+    }
+
+    .content-wrapper {
+        flex-direction: column;
+        align-items: center;
+        height: auto;
+        padding: 15px;
+    }
+
+    .affirmations-sidebar {
+        top: var(--navbar-height);
+        right: 0;
+        width: 100%;
+        max-width: 100%;
+        height: calc(100vh - var(--navbar-height));
+        border-radius: 0;
+        box-shadow: none;
+        transition: transform 0.4s ease-in-out, opacity 0.4s ease-in-out, visibility 0.4s ease-in-out;
+        transform: translateX(100%);
+        max-height: none;
+        padding: 15px;
+    }
+
+    .affirmations-sidebar.active {
+        transform: translateX(0);
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 100%;
+        max-height: calc(100vh - var(--navbar-height) - (var(--content-wrapper-padding) * 2) - 30px);
+        margin: 15px auto;
+        border-radius: 10px;
+    }
+    h1 {
+        font-size: 1.8em;
+        padding: 18px 0;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+    }
+    .disclaimer {
+        font-size: 0.9em;
+        padding: 15px 20px;
+    }
+    #chatbox {
+        padding: 20px;
+        gap: 15px;
+    }
+    .bottext, .usertext {
+        max-width: 85%;
+        padding: 12px 18px;
+    }
+    #userInput {
+        padding: 15px 20px;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+    }
+    #textInput {
+        padding: 12px 18px;
+        font-size: 1em;
+    }
+    #buttonInput, #clearHistoryBtn {
+        padding: 12px 25px;
+        font-size: 1em;
+    }
+
+    .history-container {
+        width: 95%;
+        padding: 25px;
+        margin: 20px auto;
+        border-radius: 10px;
+    }
+    .history-container h1 {
+        font-size: 2em;
+        padding-bottom: 15px;
+    }
+    .conversation-entry {
+        padding: 18px;
+        margin-bottom: 20px;
+        border-radius: 10px;
+    }
+    .conversation-entry h3 {
+        font-size: 1.2em;
+        margin-bottom: 10px;
+        padding-bottom: 8px;
+    }
+    .conversation-content {
+        max-height: 200px;
+        padding: 12px;
+    }
+    .delete-single-conversation-btn {
+        width: 28px;
+        height: 28px;
+        font-size: 0.8em;
+    }
+    .clear-history-button {
+        padding: 12px 25px;
+        font-size: 1em;
+    }
+}
+
+@media (max-width: 768px) {
+    .affirmations-sidebar {
+        width: 100%;
+        right: 0;
+        left: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    #userInput {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    #textInput {
+        margin-right: 0;
+        margin-bottom: 12px;
+    }
+    #buttonInput, #clearHistoryBtn {
+        width: 100%;
+        margin-left: 0;
+    }
+    #clearHistoryBtn {
+        margin-top: 12px;
+    }
+    .history-container {
+        padding: 20px;
+    }
+    .history-container h1 {
+        font-size: 1.8em;
+    }
+    .conversation-entry {
+        padding: 15px;
+    }
+    .conversation-entry h3 {
+        font-size: 1.1em;
+    }
+}
