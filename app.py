@@ -200,4 +200,5 @@ def get_bot_response():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    # This block will only run when executed directly, not when imported
+    app.run(debug=False)  # Disable debug mode for production
