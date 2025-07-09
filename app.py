@@ -35,10 +35,7 @@ def get_next_conversation_file_number():
 
 current_conversation_id = get_next_conversation_file_number()
 
-app = Flask(__name__,
-            static_folder='static',
-            static_url_path='/static',
-            template_folder='templates')
+app = Flask(__name__, static_folder='static', static_url_path='/static')
 
 english_bot = None
 try:
