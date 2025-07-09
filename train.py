@@ -1,7 +1,16 @@
 import os
 import logging
 import yaml
+import spacy
 
+# Download the spaCy English model if not already installed
+try:
+    nlp = spacy.load("en_core_web_sm")
+except OSError:
+    print("Downloading 'en_core_web_sm' model...")
+    spacy.cli.download("en_core_web_sm")
+    nlp = spacy.load("en_core_web_sm")
+    
 logging.basicConfig(level=logging.INFO)
 
 DATABASE_FILE = "db.sqlite3"
