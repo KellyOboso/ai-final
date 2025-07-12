@@ -1,6 +1,6 @@
 [build]
   command = "pip install -r requirements.txt && python app.py"
-  publish = "templates"  # Your static files directory
+  publish = "static"  # Your static files directory
 
 [[redirects]]
   from = "/*"
